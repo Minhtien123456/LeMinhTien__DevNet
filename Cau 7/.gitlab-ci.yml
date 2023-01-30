@@ -1,0 +1,17 @@
+image: centos:centos7.9.2009
+
+stages:
+  - deploy_code
+
+run_ansible_code:
+  stage: deploy_code
+  tags:
+    - tien
+  script:
+    - yum update -y
+    - yum install -y epel-release
+    - yum install ansible -y
+    - yum install -y python3
+    - cp -rf * /etc/ansible
+    - cd /etc/ansible
+    - ansible-playbook -i hosts.yml playbook.yml
